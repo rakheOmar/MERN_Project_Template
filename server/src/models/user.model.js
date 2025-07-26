@@ -4,12 +4,10 @@ import bcrypt from 'bcrypt';
 
 const userSchema = new Schema(
   {
-    username: {
+    fullname: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
-      lowercase: true,
       index: true,
     },
     email: {
@@ -19,25 +17,25 @@ const userSchema = new Schema(
       trim: true,
       lowercase: true,
     },
-    fullname: {
+    phoneNumber: {
       type: String,
       required: true,
       trim: true,
-      index: true,
+    },
+    countryCode: {
+      type: String,
+      required: true,
+      default: '+91',
+    },
+    address: {
+      type: String,
+      required: true,
+      trim: true,
     },
     avatar: {
       type: String,
       required: true,
     },
-    coverImage: {
-      type: String,
-    },
-    watchHistory: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Video',
-      },
-    ],
     password: {
       type: String,
       required: [true, 'Password is required'],
@@ -66,9 +64,9 @@ userSchema.methods.generateAuthToken = function () {
   return jwt.sign(
     {
       _id: this._id,
-      username: this.username,
       email: this.email,
       fullname: this.fullname,
+      phoneNumber: this.phoneNumber,
     },
     process.env.ACCESS_TOKEN_SECRET,
     {

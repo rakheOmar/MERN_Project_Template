@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export function Signup({ onSwitchToLogin }) {
   const [avatar, setAvatar] = useState(null);
+  const [countryCode, setCountryCode] = useState("+91");
 
   const handleAvatarChange = (e) => {
     const file = e.target.files?.[0];
@@ -58,7 +60,25 @@ export function Signup({ onSwitchToLogin }) {
 
         <Input placeholder="Full Name" type="text" />
         <Input placeholder="Email" type="email" />
-        <Input placeholder="Phone Number" type="tel" />
+
+        <div className="flex gap-2">
+          <div className="w-1/3">
+            <Select value={countryCode} onValueChange={setCountryCode}>
+              <SelectTrigger className="w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="+91">🇮🇳 +91</SelectItem>
+                <SelectItem value="+1">🇺🇸 +1</SelectItem>
+                <SelectItem value="+44">🇬🇧 +44</SelectItem>
+                <SelectItem value="+61">🇦🇺 +61</SelectItem>
+                <SelectItem value="+81">🇯🇵 +81</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <Input placeholder="Phone Number" type="tel" className="w-2/3" />
+        </div>
+
         <Input placeholder="Address" type="text" />
         <Input placeholder="Password" type="password" />
         <Input placeholder="Confirm Password" type="password" />
