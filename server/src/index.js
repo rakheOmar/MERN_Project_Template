@@ -4,10 +4,11 @@ import { app } from './app.js';
 
 dotenv.config({ path: './.env' });
 
-connectDB() // DB Connect from ./db/index.js
+connectDB()
   .then(() => {
     app.listen(process.env.PORT || 8000, () => {
-      console.log(`Server is running on port ${process.env.PORT || 8000}`);
+      console.log(`🚀 Server running at: http://localhost:${process.env.PORT || 8000}/api/v1/`);
+      console.log(`❤️  Check health at: http://localhost:${process.env.PORT || 8000}/api/v1/health`);
     });
   })
   .catch((err) => {

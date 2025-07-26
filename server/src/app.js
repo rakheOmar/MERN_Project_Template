@@ -6,8 +6,6 @@ dotenv.config();
 
 import { sendSMS, sendWhatsApp } from './utils/twilio.js';
 import { sendEmail } from './utils/email.js';
-import userRoutes from './routes/user.routes.js';
-import paymentRoutes from './routes/payment.routes.js';
 
 const app = express();
 
@@ -35,10 +33,17 @@ app.use(express.static('public'));
 app.use(cookieParser());
 app.use(express.static('public'));
 
+//ROUTE IMPORT
+import userRoutes from './routes/user.routes.js';
+import paymentRoutes from './routes/payment.routes.js';
+import healthRoutes from './routes/healthcheck.routes.js';
+
+// ROUTES
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/payments', paymentRoutes);
+app.use('/api/v1/health', healthRoutes);
 
-// ENVIRONMENT
+// PRODUCTION TEST ROUTES
 if (process.env.NODE_ENV === 'production') {
   app.get('/test-messages', async (req, res) => {
     try {
